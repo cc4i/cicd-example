@@ -1,21 +1,22 @@
 package df
 
 import (
+	"crawler/data"
 	"encoding/json"
 	"io/ioutil"
 	"log"
 )
 
 func LoadCities(file string) []string {
-	var pr []Province
+	var pr []data.Province
 	body, err := ioutil.ReadFile(file)
-	if err!=nil {
-		log.Fatal(err)
+	if err != nil {
+		log.Println(err)
 		return nil
 	}
 
 	err2 := json.Unmarshal(body, &pr)
-	if err2!=nil {
+	if err2 != nil {
 		log.Println(err)
 	}
 	cs := make([]string, len(pr))
@@ -25,4 +26,3 @@ func LoadCities(file string) []string {
 	}
 	return cs
 }
-
