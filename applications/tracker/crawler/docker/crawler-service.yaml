@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: crawler-service
+  namespace: air-quality-tracker
+  labels:
+    run: crawler-service
+spec:
+  selector:
+    app: crawler
+    tier: backend
+  ports:
+    - protocol: TCP
+      port: 80

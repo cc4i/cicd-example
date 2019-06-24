@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: teller-service
+  namespace: air-teller-tracker
+  labels:
+    run: teller-service
+spec:
+  selector:
+    #app: app name, eg :teller-{build_number} / To be changed by patch
+    tier: frontend
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: LoadBalancer

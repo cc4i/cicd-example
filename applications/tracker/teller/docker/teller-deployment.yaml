@@ -1,0 +1,34 @@
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teller-deployment-{build_number}
+  namespace: air-teller-tracker
+  labels:
+    app: teller-{build_number}
+    cbr: can-be-removed
+    bn: bn-{build_number}
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: teller-{build_number}
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: teller-{build_number}
+        tier: frontend
+    spec:
+      containers:
+        - name: teller-{build_number}
+          image: {account_id}.dkr.ecr.{region}.amazonaws.com/teller:{build_number}
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+            - name: MY_AWS_REGION
+              value: {region}
+            - name: MY_AWS_KINESIS_NAME
+              value: {kinesis_stream_name}
